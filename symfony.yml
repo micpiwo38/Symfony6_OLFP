@@ -26,7 +26,7 @@ jobs:
         php-version: '8.2.0'
     - uses: actions/checkout@v3
     - name: Copy .env.test.local
-      run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
+      run: php -r "file_exists('.env') || copy('.env.test', '.env.test');"
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v3
@@ -36,12 +36,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
     - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install 
     - name: Create Database
       run: |
         mkdir -p data
         touch data/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+        DATABASE_URL: mysql://root@127.0.0.1:3306/3wa_ecommerce?serverVersion=8.0.32&charset=utf8mb4"
       run: vendor/bin/phpunit
+      runs:
+        using: 'node20'
