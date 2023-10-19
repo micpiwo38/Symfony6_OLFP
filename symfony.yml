@@ -46,4 +46,4 @@ jobs:
         DATABASE_URL: mysql://root@127.0.0.1:3306/3wa_ecommerce?serverVersion=8.0.32&charset=utf8mb4"
       run: vendor/bin/phpunit
       runs:
-        using: 'node20'
+        using: 'node18'
