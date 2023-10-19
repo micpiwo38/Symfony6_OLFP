@@ -11,7 +11,7 @@
             <p class="text-info">Vos produits : {{details.products.name}}</p>
             <img width="25%" src="{{asset('img/products/mini/300x300-' ~ details.products.images[0].name)}}" class="img-fluid" width="30%" alt="{{details.products.name}}" title="{{details.products.name}}"/>
 
-            <p class="text-info">Quantité(s) : {{details.quantity}}</p>
+            <div class="text-info">Quantité(s) : {{details.quantity}}</p>
             <p class="text-info">Prix : {{details.products.price}} €</p>
         {% endfor %}
     {% endfor %}
