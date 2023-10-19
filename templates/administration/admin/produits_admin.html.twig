@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<h2 class="text-center text-warning">
+  Gestion des produits
+</h2>
+<hr>
+  <a href="{{path('app_admin_ajouter_produits')}}" class="btn btn-success">Ajouter un produit</a>
+<hr>
+<table class="table table-hover table-striped mt-3">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Categorie</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Image</th>
+        <th scope="col">Desctiption</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Date</th>
+        <th scope="col">Slug</th>
+        <th scope="col">Editer</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr class="">
+            <th scope="row">{{product.id}}</th>
+            <td>{{product.categories.name}}</td>
+            <td>{{product.name}}</td>
+            <td class="text-center">
+                <img src="{{asset('img/products/mini/300x300-' ~ product.images[0].name)}}" class="img-fluid" width="30%" alt="{{product.name}}" title="{{product.name}}"/>
+            </td>
+            <td>{{product.description}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.stock}}</td>
+            <td>{{product.createdAt|date('d/m/y')}}</td>
+            <td>{{product.slug}}</td>
+            <td>
+                <a href="{{path('app_admin_editer_produits', {slug: product.slug})}}" class="btn btn-warning">Editer</a>
+            </td>
+            <td>
+                <a href="{{path('app_admin_supprimer_produits', {id: product.id})}}" class="btn btn-danger">Supprimer</a>
+            </td>
+          </tr>
+        {% endfor %}
+     
+ 
+   
+    </tbody>
+  </table>
+{% endblock %}

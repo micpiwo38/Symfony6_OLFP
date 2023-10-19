@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+<div class="container w-50 p-3 mt-3 bg-primary">
+    {% if error %}
+    <div class="alert alert-danger mx-auto p-3 mt-3">
+        <h2 class="text-warning">
+            {{ error.messageKey|trans(error.messageData, 'security')}}
+        </h2>
+    </div>
+    {% endif %}
+
+
+    <!--Si on est connecter-->
+    {% if app.user %}
+    <div class="alert alert-success mx-auto p-3 mt-3">
+        <h2 class="text-info">
+            Bienvenue {{ app.user.email}} !
+        </h2>
+
+        <a href="{{path('app_profile_index')}}" class="btn btn-warning mt-3">Tableau de bord</a>
+        
+    </div>
+
+    {% else %}
+    <form class="text-white" method="post" action="{{path('app_login')}}">
+        <h2 class="text-warning">
+            Connexion
+        </h2>
+
+        <label for="username">Email:</label>
+        <input class="form-control mt-3" type="text" id="username" name="_username" value="{{ last_username }}" />
+
+        <label for="password">Password:</label>
+        <input class="form-control mt-3" type="password" id="password" name="_password" />
+
+        {# Jeton de sécurité CSRF #}
+        <input class="form-control" type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <button class="btn btn-danger mt-3" type="submit">CONNEXION</button>
+        <hr>
+        <em class="text-white">Vous êtes nouveau ?</em>
+        <a class="mx-3" href="{{path('app_register')}}">S'inscrire</a>
+        <hr>
+            <a href="{{path('app_forgoten-password')}}">Mot de passe oublié ?</a>
+        <hr>
+    </form>
+
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

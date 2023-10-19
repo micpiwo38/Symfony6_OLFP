@@ -1,0 +1,41 @@
+{% if pages > 1 %}
+    <nav>
+        <ul class="pagination mt-3">
+            
+                <!--Ne pas aller a page=0-->
+                {% if current_page > 1 %}
+                <li class="page-item">
+                    <a href="{{path(path, {slug: slug, page: current_page - 1})}}" class="page-link">&lt;</a>
+                </li>
+                    {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">&lt;</a>
+                </li>
+                {% endif %}           
+         
+
+            <!--Numero de page-->
+            {% for page in 1..pages %}
+            <!--Colore le chiffre de la page active-->
+                <li class="page-item {{(page == current_page) ? 'active' : ''}}">
+                    <a href="{{path(path, {slug: slug, page: page})}}" class="page-link">{{page}}</a>
+                </li>
+            {% endfor %}
+
+            <!--Page suivante-->
+           
+                <!--Ne pas aller a page=0-->
+                {% if current_page < pages %}
+                <li class="page-item">
+                    <a href="{{path(path, {slug: slug, page: current_page + 1})}}" class="page-link">&gt;</a>
+                </li>
+                    {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">&gt;</a>
+                </li>
+                {% endif %}           
+            </li>
+        </ul>
+    </nav>
+
+{% endif %}

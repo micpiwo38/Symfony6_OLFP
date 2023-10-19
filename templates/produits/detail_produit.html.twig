@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %} 
+
+{% block title %}Détails Produit{% endblock %}
+
+{% block body %}
+
+    <div class="bg-white p-3 mt-5">
+        <h2 class="text-center text-warning">Détails du produit :</h2>
+          <div class="row">
+          
+            <div class="col-md-6 col-sm-12">
+              
+              <div id="carouselExampleIndicators" class="carousel slide">
+                <div class="carousel-indicators">
+                  <!--Compte le nombre d'image (cle etrangere) par produit-->
+                  {% for iteration in 1.. details_produit.images|length %}
+                  <button type="button" 
+                    data-bs-target="#carouselExampleIndicators" 
+                    data-bs-slide-to="{{iteration - 1}}" 
+                    {{ (loop.first) ? 'class="active" aria-current="true"' : '' }}
+                    aria-label="Slide {{iteration}}"></button>
+                  {% endfor %}
+                
+                </div>
+                <div class="carousel-inner">
+                  {% for image in details_produit.images %}
+                 
+                  <div class="carousel-item {{(loop.first) ? 'active' : ''}}">
+                    <img class="d-block w-100 img-fluid" width="100%" src="{{asset('/img/products/mini/300x300-') ~ image.name}}" alt="{{details_produit.name}}" title="{{details_produit.name}}"/>
+                  </div>
+                  {% endfor %}                          
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Precedent</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Suivant</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="text-white bg-primary mb-3 h-100 p-3">
+                <div class="text-danger">{{details_produit.name}}</div>
+                <div class="">
+                  <h4 class="text-warning">Catégorie : {{details_produit.categories.name}}</h4>
+                  <p class="">{{details_produit.description}}</p>
+                  <p class="text-success">Prix : {{details_produit.price}} €</p>
+                  <em>Date de dépot : {{details_produit.createdAt|date('d/m/Y')}}</em>
+                  {% if details_produit.stock > 0 %}
+                    <p class="mt-3">En stock : {{details_produit.stock ? "OUI" : "NON"}}</p>
+                    <a href="{{path('app_panier',{id: details_produit.id})}}" class="btn btn-success">Ajouter au panier</a>
+                  {% else %}
+                    <p class="alert alert-danger">Ce produit n'est plus en stock !</p>
+                  {% endif %}
+                  
+            
+                  <a href="{{path('app_products')}}" class="btn btn-danger">Retour</a>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    
+{% endblock %}

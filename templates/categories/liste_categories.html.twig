@@ -1,0 +1,58 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{categorie.name}}{% endblock %}
+
+{% block body %}
+<div class="bg-primary mt-3 p-3 text-white">
+    <h3 class="text-center text-warning">
+        Lise des produits de la catégorie : {{categorie.name}}
+    </h3>
+
+    {% if products is not empty %}
+    
+
+    {% for product in products.data %}
+    {% if product is empty %}
+    <div class="alert alert-danger p-3">
+        <em>Pas de produits pour cette catégorie !</em>
+    </div>
+    {% else %}
+
+    <div class="card mt-3">
+        <div class="card-header text-center">
+            <h3 class="text-warning">
+                {{product.name}}
+            </h3>
+            <img width="25%" src="{{asset('img/products/mini/300x300-' ~ product.images[0].name)}}" class="img-fluid" alt="{{product.name}}" title="{{product.name}}"/>
+
+        </div>
+        <div class="card-body">
+            <p> {{product.description}}</p>
+            <p class="text-success">Prix {{product.price}} €</p>
+            <a href="{{path('app_product_details', {slug: product.slug})}}" class="btn btn-info">Détails du produit</a>
+            <a href="{{path('app_main')}}" class="btn btn-danger">Retour</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+      <!--Variable twig-->
+      {% set path = 'app_categories' %}
+      {% set slug = categorie.slug %}
+      {% set pages = products.pages %}
+      {% set current_page = products.page %}
+  
+      {% include "includes/pagination.html.twig" %}
+
+    {% else %}
+        <div class="alert alert-danger p-3 text-center">
+            <h3>Aucun produit pour cette categorie</h3>
+            <a href="{{path('app_main')}}" class="btn btn-success mt-3">Retour aux catégories</a>
+        </div>
+
+    {% endif %}
+
+  
+
+</div>
+{% endblock %}

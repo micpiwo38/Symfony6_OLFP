@@ -1,0 +1,9 @@
+<h1>Activez votre compte</h1>
+<p>Bonjour {{user.firstname}}</p>
+<p>Votre inscription sur le site E-commerce doit etre validée en cliquant sur le liens suivant :</p>
+<!--Le liens dans mailhog revoie sur le port: http://localhost:8025/ nous on veux http://localhost:8000/ -->
+<!--On utilise donc la fonction Twig absolute_url()-->
+<a href="{{absolute_url(path('app_verify_user', {token: token}))}}">
+    {{absolute_url(path('app_verify_user', {token: token}))}}
+</a>
+<em>Ce lien expire dans 3 heures !</em>

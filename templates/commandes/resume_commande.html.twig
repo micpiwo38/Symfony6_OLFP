@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+    <h2 class="text-center text-success">Détails de votre commande</h2>
+    {% for commande in order %}
+        <p>Référence de la commande : {{commande.reference}}</p>
+        <p>Votre email : {{commande.users.email}}</p>
+        <p>Date de la commande :{{commande.createdAt|date('d/m/y')}}</p>
+        {% for details in order_details %}
+            <p>Vos produits : {{details.products.name}}</p>
+            <img width="25%" src="{{asset('img/products/mini/300x300-' ~ details.products.images[0].name)}}" class="img-fluid" width="30%" alt="{{details.products.name}}" title="{{details.products.name}}"/>
+
+            <p>Quantité(s) : {{details.quantity}}</p>
+            <p>Prix : {{details.products.price}} €</p>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

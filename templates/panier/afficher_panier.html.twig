@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+<h2 class="text-center text-danger mt-3">VOTRE PANIER</h2>
+<table class="table table-hover table-striped mt-3">
+    <thead>
+      <tr class="table-primary">
+        <th scope="col">Nom</th>
+        <th scope="col">Categorie</th>
+        <th scope="col">Image</th>
+        <th scope="col">Desctiption</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Quantité(s)</th>
+        <th scope="col">Total</th>
+        <th scope="col">Soustraire</th>
+        <th scope="col">Ajouter</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for data in panier %}
+        <tr class="">
+            <td>{{data.product.name}}</td>
+            <td>{{data.product.categories.name}}</td>
+            
+            <td class="text-center">
+                <img src="{{asset('img/products/mini/300x300-' ~ data.product.images[0].name)}}" class="img-fluid" width="30%" alt="{{data.product.name}}" title="{{data.product.name}}"/>
+            </td>
+            <td>{{data.product.description}}</td>
+            <td>{{data.product.price}} €</td>
+            <td>{{data.quantity}}</td>
+            <td>{{data.quantity * data.product.price}} €</td>
+            <td>
+                <a href="{{path('app_remove_quantity_panier',{id: data.product.id})}}" class="btn btn-warning">-</a>
+            </td>
+            <td>
+                <a href="{{path('app_add_quantity_panier',{id: data.product.id})}}" class="btn btn-success">+</a>
+            </td>
+            <td>
+                <a href="{{path('app_remove_product_panier', {id: data.product.id})}}" class="btn btn-danger">Supprimer</a>
+            </td>
+          </tr>
+          {% else %}
+            <tr>
+                <td colspan="10" class="text-danger">Votre panier est vide</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  <h3 class="text-success">Total de la commande : {{total}} €</h3>
+  <a href="{{path('app_vider_panier')}}" class="btn btn-primary">Vider le panier</a>
+  <hr>
+  <a href="{{path('app_add_order')}}" class="btn btn-success">Valider la commande</a>
+  <hr>
+{% endblock %}

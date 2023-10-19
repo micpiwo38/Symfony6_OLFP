@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+    <h2 class="text-center text-info">Ajouter une catégorie enfant</h2>
+    
+    <div class="bg-primary w-50 mx-auto p-3 mt-3 text-warning">
+        {{form_start(form)}}
+            {{form_row(form.parent)}}
+            {{form_row(form.name)}}
+            {{form_row(form.slug)}}
+            {{form_row(form.categorieOrder)}}
+            <button type="submit" class="btn btn-success">Ajouter la catégorie</button>
+        {{form_end(form)}}
+    </div>
+{% endblock %}

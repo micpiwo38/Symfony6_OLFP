@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+    <h2 class="text-center text-info">
+        Gestion des produits
+    </h2>
+    <a href="{{path('app_admin_ajouter_produits')}}" class="btn btn-success">Ajouter un produit</a>
+    <div class="row p-3 mt-5">
+    {% for product in products %}
+    <div class="col-md-4 col-sm-12 mt-3">
+        <div class="card h-100 text-white bg-primary mb-3" style="max-width: 20rem;">
+            <img src="{{asset('img/products/mini/300x300-' ~ product.images[0].name)}}" class="card-img-top" alt="{{product.name}}" title="{{product.name}}"/>
+            <div class="card-header">{{product.name}}</div>
+            <div class="card-body">
+                <h4 class="card-title">Catégorie : {{product.categories.name}}</h4>
+                <p class="card-text">{{product.description}}</p>
+                <p>Prix : {{product.price}}</p>
+                <p>{{product.stock ? "OUI" : "NON"}}</p>
+                <p>{{product.createdAt|date('d/m/Y')}}</p>
+                <a class="btn btn-warning mt-3" href="{{path('app_product_details',{slug: product.slug})}}">Détails du
+                    produit</a>
+                <a class="btn btn-danger mt-3" href="{{path('app_admin_editer_produits',{slug: product.slug})}}">Editer le
+                        produit</a>
+                <a href="{{path('app_products')}}" class="btn btn-success mt-3">Retour</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+ 
+{% endblock %}

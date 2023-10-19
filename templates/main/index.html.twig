@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+<div class="bg-primary mt-3 p-3">
+    <h2 class="text-center text-info">
+        BIENVENUE
+    </h2>
+    {% for categorie in categories %}
+    {% if categorie.parent == null %}
+    <h3 class="text-success mt-3">
+        {{categorie.name}}
+    </h3>
+
+    {% else %}
+    <div class="col-md-3 col-sm-12 mt-3">
+        <div class="card">
+            <div class="card-body">
+                <a href="{{path('app_categories', {slug: categorie.slug})}}">{{categorie.name}}</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+
+    {% endfor %}
+</div>
+{% endblock %}

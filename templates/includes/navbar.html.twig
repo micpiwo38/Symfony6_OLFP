@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{path('app_main')}}">SYMFONY 6 3WA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+      aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{path('app_main')}}">ACCUEIL
+
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('app_products')}}">PRODUITS</a>
+        </li>
+
+      </ul>
+      <form class="d-flex">
+        <a href="{{path('app_register')}}" class="btn btn-warning mx-3 my-2 my-sm-0" type="submit">INSCRIPTION</a>
+        {%if app.user %}
+        <a href="{{path('app_resume_order')}}" class="btn btn-success">Votre commande</a>
+          {% if is_granted('ROLE_ADMIN') %}
+          <a href="{{path('app_admin')}}" class="btn btn-secondary mx-3">ADMINISTRATION</a>
+          {% endif %}
+        
+        <a href="{{path('app_profile_index')}}" class="btn btn-success mx-3">Tableau de bord</a>
+        <a href="{{path('app_logout')}}" class="btn btn-danger my-2 my-sm-0" type="submit">DECONNEXION</a>
+        {% else %}
+        <a href="{{path('app_login')}}" class="btn btn-secondary my-2 my-sm-0" type="submit">CONNEXION</a>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</nav>

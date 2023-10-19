@@ -1,0 +1,29 @@
+<div class="bg-primary w-50 mx-auto mt-3 p-3 text-white">
+    {{form_start(product_form )}}
+
+    {{form_row(product_form.name)}}
+    {{form_row(product_form.description)}}
+    {{form_row(product_form.price)}}
+    {{form_row(product_form.stock)}}
+    {{form_row(product_form.categories)}}
+   
+
+    {# Si on est en edition #}
+    {% if app.request.attributes.get('_route') == 'app_admin_editer_produits' %}
+        {% for image in product.images %}
+            <div>
+                <img class="img-fluid mt-3" src="{{asset('img/products/mini/300x300-' ~ image.name)}}" alt="{{image.name}}" title="{{image.name}}" width="25%"/>
+                <a href="{{path('app_admin_supprimer_image', {id: image.id})}}" data-delete data-token="{{csrf_token('delete' ~ image.id)}}" class="btn btn-danger mx-5">Supprimer l'image</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="mt-3">
+        {{form_row(product_form.images)}}
+    </div>
+   
+
+    <!--Conditiojn soit ajouter soit editer-->
+    <button type="submit" class="btn btn-info">{{button_label|default('Ajouter')}}</button>
+
+    {{form_end(product_form )}}
+</div>
